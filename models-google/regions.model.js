@@ -8,7 +8,7 @@ const RegionsSchema = new Schema(
             require: true,
             unique: true,
         },
-        dentists: {
+        clinics: {
             type: [Schema.Types.Mixed],
             require: true,
         },
@@ -16,5 +16,5 @@ const RegionsSchema = new Schema(
     {timestamps: true},
 );
 
-const Regions = mongoose.model('totalregions', RegionsSchema);
+const Regions = mongoose.model('googleregions', RegionsSchema);
 export default Regions;

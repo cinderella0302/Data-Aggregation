@@ -54,5 +54,5 @@ const DentistsSchema = new Schema(
     {timestamps: true},
 );
 
-const Dentists = mongoose.model('totaldentists', DentistsSchema);
+const Dentists = mongoose.model('googledentists', DentistsSchema);
 export default Dentists;

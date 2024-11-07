@@ -6,7 +6,6 @@ const RegionsSchema = new Schema(
         zipcode: {
             type: Number,
             require: true,
-            unique: true,
         },
         dentists: {
             type: [Schema.Types.Mixed],
@@ -16,5 +15,5 @@ const RegionsSchema = new Schema(
     {timestamps: true},
 );
 
-const Regions = mongoose.model('totalregions', RegionsSchema);
+const Regions = mongoose.model('aaoregions', RegionsSchema);
 export default Regions;

@@ -6,20 +6,11 @@ import Dentists from './models/dentists.model.js';
 import Regions from './models/regions.model.js';
 import Clinics from './models/clinics.model.js';
 
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-// import { profile } from 'console';
-
 dotenv.config();
-const mongooseURL = process.env.MONGODB_URL;
-
-puppeteer.use(StealthPlugin());
-
-let options = {
-    executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-    args: ['--disable-gpu', '--disable-software-rasterizer']
-}
-options.headless = true;
+const mongooseURLADA = process.env.MONGODB_URL_ADA;
+const mongooseURLAAO = process.env.MONGODB_URL_AAO;
+const mongooseURLGoogle = process.env.MONGODB_URL_GOOGLE;
+const mongooseURLData = process.env.MONGODB_URL_DATA;
 
 function customToLowerCase(str) {
     let result = '';
@@ -271,17 +262,19 @@ async function getRequestForDentist(profile, cookie){
     }
 }
 
-await mongoose.connect(mongooseURL);
-console.log('Connected to mongoDB');
+await mongoose.connect(mongooseURLADA);
+console.log('Connected to ADA cluster');
 
+await mongoose.connect(mongooseURLAAO);
+console.log('Connected to AAO cluster');
 // const zipcodeData = await readZipcode('./zipcode/zip-codes-data-virginia.json');
 const zipcodeData = await readZipcode('./zipcode/zip-codes-data-texas.json');
 // console.log(zipcodeData);
 // const firstUrl = `https://findadentist.ada.org/api/Dentists?Address=${}&Photo=false&OpenSaturday=false`;
 
-for(let i = 0; i < zipcodeData.length; i++) {
-    console.log('-------------------------------zipcode: ', zipcodeData[i], ' ----index: ', i);
-    const cookie = await getCookiesForRegion(zipcodeData[i]);
-    await getRequestForRegion(zipcodeData[i], cookie, i);
-}
+// for(let i = 0; i < zipcodeData.length; i++) {
+//     console.log('-------------------------------zipcode: ', zipcodeData[i], ' ----index: ', i);
+//     const cookie = await getCookiesForRegion(zipcodeData[i]);
+//     await getRequestForRegion(zipcodeData[i], cookie, i);
+// }
 

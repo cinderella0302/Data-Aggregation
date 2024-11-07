@@ -13,5 +13,5 @@ const ClinicsSchema = new Schema(
     {timestamps: true},
 );
 
-const Clinics = mongoose.model('totalclinics', ClinicsSchema);
+const Clinics = mongoose.model('Clinics', ClinicsSchema);
 export default Clinics;

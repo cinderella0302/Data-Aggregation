@@ -6,12 +6,12 @@ const ClinicsSchema = new Schema(
         Website: {
             type: String,
             require: true,
-            unique: true
+            unique: true,
         },
-        Dentists: [Schema.Types.Mixed],
+        Dentists: Schema.Types.Mixed,
     },
     {timestamps: true},
 );
 
-const Clinics = mongoose.model('totalclinics', ClinicsSchema);
+const Clinics = mongoose.model('aaoclinics', ClinicsSchema);
 export default Clinics;
