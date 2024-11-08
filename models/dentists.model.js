@@ -4,13 +4,10 @@ const Schema = mongoose.Schema;
 const DentistsSchema = new Schema(
     {
         PersonId: {
-            type: Number,
-            required:true,
+            type: Number
         },
         AddressId: {
-            type: Number,
-            required: true,
-            unique: true
+            type: Number
         },
         Photo: String,
         Specialty: Schema.Types.Mixed,
@@ -46,13 +43,20 @@ const DentistsSchema = new Schema(
         BusinessHours: [ Schema.Types.Mixed],
         Education: [ Schema.Types.Mixed ],
         MetaDescription: String,
-        Source: {
-            type: String,
-            default: 'ADA',
-        }
+        Email: String,
+        Source: String,
+        SounceId: {
+            type: Number,
+            default: 1,
+        },
     },
     {timestamps: true},
 );
 
-const Dentists = mongoose.model('totaldentists', DentistsSchema);
-export default Dentists;
+const TotalDentists = mongoose.model('totaldentists', DentistsSchema);
+export default TotalDentists;
+
+// Source
+// 1: ada
+// 2: aao 
+// 3: both

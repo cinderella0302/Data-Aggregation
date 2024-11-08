@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const DentistsSchema = new Schema(
+const ADADentistsSchema = new Schema(
     {
         PersonId: {
             type: Number,
@@ -54,5 +54,5 @@ const DentistsSchema = new Schema(
     {timestamps: true},
 );
 
-const Dentists = mongoose.model('Dentists', DentistsSchema);
-export default Dentists;
+const ADADentists = mongoose.model('adadentists', ADADentistsSchema);
+export default ADADentists;
