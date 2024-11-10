@@ -56,3 +56,5 @@ const ADADentistsSchema = new Schema(
 
 const ADADentists = mongoose.model('adadentists', ADADentistsSchema);
 export default ADADentists;
+
+//email

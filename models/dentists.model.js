@@ -2,19 +2,19 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const DentistsSchema = new Schema(
-    {
-        PersonId: {
-            type: Number
-        },
-        AddressId: {
-            type: Number
-        },
+    {   
+        email: String,
+        PersonId: Number,
+        AddressId: Number,
         Photo: String,
         Specialty: Schema.Types.Mixed,
         Specialities: [Schema.Types.Mixed],
         Name: String,
         TagName: String,
-        Phone: String,
+        Phone: {
+            type: String,
+            unique: true,
+        },
         WebSite: String,
         HasEmail: Boolean,
         Address: String,
@@ -45,10 +45,6 @@ const DentistsSchema = new Schema(
         MetaDescription: String,
         Email: String,
         Source: String,
-        SounceId: {
-            type: Number,
-            default: 1,
-        },
     },
     {timestamps: true},
 );

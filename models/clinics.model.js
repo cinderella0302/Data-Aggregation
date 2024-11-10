@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const ClinicsSchema = new Schema(
     {
+        source: Number,
+        dentists: [ String ],
+        payment_options: [ String ],
+        insurances: [ String ],
         address_components: [ Schema.Types.Mixed ],
         adr_address: String,
         business_status: String,
