@@ -20,7 +20,7 @@ try{
 
         const phoneNumber = doc.phone.slice(0, 5) + ' ' + doc.phone.slice(5);
         // 17555, 21524
-        if(doc.id == '17555'){
+        if(doc.id == '24498'){
             flag = true;
         }
         console.log('------ start dentist: ', doc.id, phoneNumber);
@@ -62,8 +62,7 @@ try{
 
             // console.log('---- push dentist: ', addressId);
         }else{
-            break;
-            // console.log('---- bypass dentist: ', doc.id);
+            console.log('---- bypass dentist: ', doc.id);
             // await mongoose.connection.close();
         }
     }

@@ -44,3 +44,13 @@ const ClinicsSchema = new Schema(
 
 const Clinics = mongoose.model('totalclinics', ClinicsSchema);
 export default Clinics;
+
+
+////
+// google 1
+// ada 2
+// aao 3
+// google, ada 4
+// google, aao 5
+// aao, ada 6
+// google, ada, aao 7
