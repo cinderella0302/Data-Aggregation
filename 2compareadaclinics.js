@@ -34,7 +34,7 @@ try{
 
         const website = doc.Website;
         // 17555, 21524
-        if(website == 'www.childrensdentalcare.us'){
+        if(website == 'www.smilesatsunrise.com/about.html'){
             flag = true;
         }
         console.log('------ start clinic: ', website);
@@ -66,7 +66,7 @@ try{
                         {
                             source: 2,
                             website: website,
-                            place_id: 'add' + generateRandomString(6),
+                            place_id: 'ada' + generateRandomString(6),
                         }
                     );
                 }else{
@@ -83,7 +83,15 @@ try{
                         );
                         console.log('---- create a new clinic: ', website);
                     }catch(error){
-                        console.log('---- already existed clinic: ', website);
+                        await TotalClinics.findOneAndUpdate(
+                            { place_id: clinicInfo.place_id },
+                            { $set: {
+                                    source: 4,
+                                }
+                            },
+                            { upsert: true }
+                        );
+                        console.log('---- already existed clinic: change source to 4: ', website);
                     }
                 }
             }

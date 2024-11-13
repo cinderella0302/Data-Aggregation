@@ -9,6 +9,18 @@ dotenv.config();
 const mongooseURL = process.env.MONGODB_URL;
 const APIKEY = process.env.GOOGLE_MAPS_API_KEY;
 
+function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+
+    return result;
+}
+
 await mongoose.connect(mongooseURL);
 console.log('Connected to mongodb');
 
@@ -22,7 +34,7 @@ try{
 
         const website = doc.Website;
         // 17555, 21524
-        if(website == 'www.welchdentalgroup.com'){
+        if(website == 'http://www.clearchoiceortho.com'){
             flag = true;
         }
         console.log('------ start clinic: ', website);
@@ -33,27 +45,41 @@ try{
             console.log('---- existed: ', existed);
 
             if(existed){
-                await TotalClinics.findOneAndUpdate(
-                    { website: website},
-                    {
-                        $set: {
-                            source: 4,
-                        }
-                    },
-                    { upsert: true }
-                );
-                console.log('---- update clinic: ', website);
+                if(existed.source == "1"){
+                    await TotalClinics.findOneAndUpdate(
+                        { website: website},
+                        {
+                            $set: {
+                                source: 5,
+                            }
+                        },
+                        { upsert: true }
+                    );
+                    console.log('---- update clinic: to 5 ', website);
+                }else if(existed.source == "4"){
+                    await TotalClinics.findOneAndUpdate(
+                        { website: website},
+                        {
+                            $set: {
+                                source: 7,
+                            }
+                        },
+                        { upsert: true }
+                    );
+                    console.log('---- update clinic: to 7 ', website);
+                }
 
             }else{
                 const response = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${website}&key=${APIKEY}`);
                 // console.log('---- response: ', response.data);
 
-                if(response.status == "ZERO_RESULTS"){
+                if(response.data.status == "ZERO_RESULTS"){
                     console.log('------- not existing clinic: ', website);
                     await TotalClinics.create(
                         {
-                            source: 2,
+                            source: 3,
                             website: website,
+                            place_id: 'aao' + generateRandomString(6),
                         }
                     );
                 }else{
@@ -64,13 +90,35 @@ try{
                     try{
                         await TotalClinics.create(
                             {
-                                source: 4,
+                                source: 5,
                                 ...clinicInfo,
                             }
                         );
                         console.log('---- create a new clinic: ', website);
                     }catch(error){
-                        console.log('---- already existed clinic: ', website)
+                        console.log('---- already existed clinic: ', website);
+                        const currentClinic = await TotalClinics.findOne({place_id: clinicInfo.place_id});
+                        if( currentClinic.source == "1"){
+                            await TotalClinics.findOneAndUpdate(
+                                { place_id: clinicInfo.place_id },
+                                {
+                                    $set: {
+                                        source: 5,
+                                    }
+                                },
+                                { upsert: true }
+                            );
+                        }else{
+                            await TotalClinics.findOneAndUpdate(
+                                { place_id: clinicInfo.place_id },
+                                {
+                                    $set: {
+                                        source: 7,
+                                    }
+                                },
+                                { upsert: true }
+                            );
+                        }
                     }
                 }
             }
