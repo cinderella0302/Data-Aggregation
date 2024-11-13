@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import TotalDentists from './models/dentists.model.js';
-import ADADentists from './models-ada/dentists.model.js';
+// import ADADentists from './models-ada/dentists.model.js';
 import AAODentists from './models-aao/dentists.model.js';
 
 dotenv.config();
