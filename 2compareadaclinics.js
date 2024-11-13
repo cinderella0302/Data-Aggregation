@@ -15,6 +15,18 @@ console.log('Connected to mongodb');
 console.log('----- start at first');
 const cursor = await ADAClinics.find().cursor();
 
+function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+
+    return result;
+}
+
 let flag = false;
 // console.log('----- start', cursor);
 try{
@@ -22,7 +34,7 @@ try{
 
         const website = doc.Website;
         // 17555, 21524
-        if(website == 'www.kccortho.com'){
+        if(website == 'www.childrensdentalcare.us'){
             flag = true;
         }
         console.log('------ start clinic: ', website);
@@ -46,14 +58,15 @@ try{
 
             }else{
                 const response = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${website}&key=${APIKEY}`);
-                console.log('---- response status', response.body);
+                console.log('---- response status', response.data.status);
 
-                if(response.body.status == "ZERO_RESULTS"){
+                if(response.data.status == "ZERO_RESULTS"){
                     console.log('------- not existing clinic: ', website);
                     await TotalClinics.create(
                         {
                             source: 2,
                             website: website,
+                            place_id: 'add' + generateRandomString(6),
                         }
                     );
                 }else{
