@@ -34,7 +34,7 @@ try{
 
         const website = doc.Website;
         // 17555, 21524
-        if(website == 'http://www.clearchoiceortho.com'){
+        if(website == 'https://braces4yourlife.com'){
             flag = true;
         }
         console.log('------ start clinic: ', website);
